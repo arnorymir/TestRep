@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mvn clean
+mvn package
+cd ..
+mkdir ticTacToeApp
+cp ./tictactoe1/target/tictactoe-1.0-SNAPSHOT-jar-with-dependencies.jar ./ticTacToeApp
+java -jar ./ticTacToeApp/tictactoe-1.0-SNAPSHOT-jar-with-dependencies.jar
