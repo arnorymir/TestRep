@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: is.gogg.tictactoe.BoardTest
--------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in is.gogg.tictactoe.BoardTest
