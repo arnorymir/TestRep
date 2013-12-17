@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TicTacToeWeb.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tictactoe</a> &gt; <a href="index.html" class="el_package">is.gogg.tictactoe</a> &gt; <span class="el_source">TicTacToeWeb.java</span></div><h1>TicTacToeWeb.java</h1><pre class="source lang-java linenums">package is.gogg.tictactoe;
+
+import java.util.Scanner;
+import static spark.Spark.*;
+import spark.*;
+
+public class TicTacToeWeb
+{
+		private static Board board;
+		private static Player p1;
+		private static Player p2;
+		
+		public TicTacToeWeb(Board b, Player player1, Player player2)
+<span class="nc" id="L14">		{</span>
+<span class="nc" id="L15">			board = b;</span>
+<span class="nc" id="L16">			p1 = player1;</span>
+<span class="nc" id="L17">			p2 = player2;</span>
+<span class="nc" id="L18">		}</span>
+		
+        public static void main(String[] args)
+        {
+<span class="nc" id="L22">			staticFileLocation(&quot;/public&quot;);</span>
+<span class="nc" id="L23">			setPort(Integer.valueOf(System.getenv(&quot;PORT&quot;)));</span>
+<span class="nc" id="L24">			post(new Route(&quot;/setMarker&quot;) {</span>
+	
+
+            @Override
+            public Object handle(Request request, Response response) {
+<span class="nc" id="L29">                char marker = Character.toUpperCase(String.valueOf(request.queryParams(&quot;marker&quot;)).charAt(0));</span>
+<span class="nc" id="L30">				System.out.println(marker);</span>
+<span class="nc" id="L31">                p1 = new Player(true, marker);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">				if(marker == 'X')</span>
+				{
+<span class="nc" id="L34">					p2 = new Player(false, 'O');</span>
+				}
+				else
+				{
+<span class="nc" id="L38">					p2 = new Player(false, 'X');</span>
+				}
+<span class="nc" id="L40">				board = new Board();</span>
+<span class="nc" id="L41">				return marker;</span>
+            }
+        });
+<span class="nc" id="L44">		post(new Route(&quot;/getSquare&quot;) {</span>
+            @Override
+            public Object handle(Request request, Response response) {
+<span class="nc" id="L47">				String square = String.valueOf(request.queryParams(&quot;square&quot;));</span>
+<span class="nc" id="L48">				String valueToReturn = &quot;&quot;;</span>
+				int p1Square;
+				int p2Square;
+				boolean valid;
+<span class="nc bnc" id="L52" title="All 2 branches missed.">				if(p1.getMarker() == 'X')</span>
+				{
+<span class="nc" id="L54">					p1Square = p1.getHumanMove(square);</span>
+<span class="nc" id="L55">					valid = board.makeTurn(p1.getMarker(), p1Square);</span>
+					do
+					{
+<span class="nc" id="L58">						p2Square = p2.getPlayerMove();</span>
+						
+<span class="nc bnc" id="L60" title="All 2 branches missed.">						if(board.isTie())</span>
+						{
+							
+<span class="nc" id="L63">							return (String.valueOf(p1Square) + &quot;ht&quot;); </span>
+						}
+<span class="nc" id="L65">						valid = board.makeTurn(p2.getMarker(), p2Square);</span>
+						
+<span class="nc bnc" id="L67" title="All 2 branches missed.">					}while(!valid);</span>
+				}
+				else
+				{
+					do
+					{
+<span class="nc" id="L73">						p2Square = p2.getPlayerMove();</span>
+<span class="nc" id="L74">						valid = board.makeTurn(p2.getMarker(), p2Square);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">					}while(!valid);</span>
+<span class="nc" id="L76">					p1Square = p1.getHumanMove(square);</span>
+<span class="nc" id="L77">					valid = board.makeTurn(p1.getMarker(), p1Square);</span>
+				}
+<span class="nc" id="L79">				valueToReturn = valueToReturn + String.valueOf(p1Square) + String.valueOf(p2Square);</span>
+				
+<span class="nc bnc" id="L81" title="All 2 branches missed.">				if(board.checkForWin(p1.getMarker()))</span>
+				{
+<span class="nc" id="L83">					valueToReturn =  valueToReturn + 'w';</span>
+				}
+<span class="nc bnc" id="L85" title="All 2 branches missed.">				else if(board.checkForWin(p2.getMarker()))</span>
+				{
+<span class="nc" id="L87">					valueToReturn = valueToReturn + 'l';</span>
+				}
+				
+<span class="nc" id="L90">				return valueToReturn;</span>
+            }
+        });
+<span class="nc" id="L93">        }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

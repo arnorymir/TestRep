@@ -1,0 +1,63 @@
+﻿/*Tac Tac Toe CSS*/
+.ticTacToeButton
+{
+    font-size: 3.8em;
+    width: 50px;
+    padding: 50px;
+    text-align: center;
+    border: 4px solid black;
+    background-color: #fffff;
+    height: 70px;
+}
+
+#ticTacToeBody {
+    width: 300px;
+}
+
+
+.winningCell 
+{
+    background-color: red;
+}
+
+#cell1{
+    border-top: none;
+    border-left: none;
+}
+
+#cell2{
+    border-top: none;
+}
+
+#cell3{
+    border-top: none;
+    border-right: none;
+}
+
+#cell4{
+    border-left: none;
+}
+
+#cell6{
+    border-right: none;
+}
+
+#cell7{
+    border-left: none;
+    border-bottom: none;
+}
+
+#cell8{
+    border-bottom: none;
+}
+
+#cell9{
+    border-right: none;
+    border-bottom: none;
+}
+
+.winningCell 
+{
+    background-color: red;
+}
+/*End of Tic Tac Toe CSS*/
